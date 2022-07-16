@@ -7,12 +7,9 @@ func main() {
 }
 
 func lastRemaining(n int, m int) int {
-	circle := make([]int, n)
-	for i := 0; i < len(circle); i++ {
-		circle[i] = i
+	idx := 0
+	for i := 2; i <= n; i++ {
+		idx = (idx + m) % i
 	}
-	for len(circle) > 1 {
-		circle = append(circle[:m%len(circle)], circle[m%len(circle)+1:]...)
-	}
-	return circle[0]
+	return idx
 }
