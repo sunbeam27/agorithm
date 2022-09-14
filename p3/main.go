@@ -34,18 +34,16 @@ func main() {
 	fmt.Println(lengthOfLongestSubstring("pwwkew"))
 }
 func lengthOfLongestSubstring(s string) int {
-	max := 1
+	max := 0
 	for i, _ := range s {
-		chMap := make(map[byte]struct{})
-		for j := i; j < len(s); j++ {
-			_, ok := chMap[s[j]]
-			if ok {
-				break
-			}
-			chMap[s[j]] = struct{}{}
+		chMap := [26]int{}
+		j := i
+		for j < len(s) && chMap[s[j]-97] == 0 {
+			chMap[s[j]-97] += 1
 			if j-i+1 > max {
 				max = j - i + 1
 			}
+			j++
 		}
 	}
 	return max
