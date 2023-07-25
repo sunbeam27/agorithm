@@ -62,29 +62,21 @@ func partition(nums []int, left, right int) int {
 	return i
 }
 
-func bubble(arr []int) {
-	for i := 0; i < len(arr); i++ {
-		for j := i; j < len(arr); j++ {
-			if arr[i] > arr[j] {
-				arr[i], arr[j] = arr[j], arr[i]
-			}
-		}
-	}
-}
-
 func quick(nums []int, left, right int) {
 	if left >= right {
 		return
 	}
 	pivot := nums[left]
-	i := right
-	for j := right; j > left; j-- {
-		if nums[j] < pivot {
-			nums[i], nums[j] = nums[j], nums[i]
-			i--
+	i, j := left, right
+	for i < j {
+		for i < j && nums[i] < pivot {
+			i++
 		}
+		for i < j && nums[j] > pivot {
+			j--
+		}
+		nums[i], nums[j] = nums[j], nums[i]
 	}
-	nums[right], nums[i] = nums[i], pivot
 	quick(nums, left, i-1)
 	quick(nums, i+1, right)
 }

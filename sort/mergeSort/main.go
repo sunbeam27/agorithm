@@ -7,33 +7,32 @@ func main() {
 }
 
 func mergeSort(nums []int) []int {
-	return merge1(nums)
+	return mergesort(nums)
 }
-
-func merge1(nums []int) []int {
-	if len(nums) <= 1 {
-		return nums
+func mergesort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
 	}
-	mid := len(nums) / 2
-	left := merge1(nums[:mid])
-	right := merge1(nums[mid:])
+	mid := len(arr) / 2
+	left := mergesort(arr[:mid])
+	right := mergesort(arr[mid:])
 	return merge(left, right)
 }
 
-func merge(n1, n2 []int) []int {
-	res := make([]int, 0, len(n1)+len(n2))
+func merge(l1, l2 []int) []int {
+	t := make([]int, 0, len(l1)+len(l2))
 	i1, i2 := 0, 0
-	for i1 < len(n1) && i2 < len(n2) {
-		if n1[i1] < n2[i2] {
-			res = append(res, n1[i1])
+	for i1 < len(l1) && i2 < len(l2) {
+		if l1[i1] < l2[i1] {
+			t = append(t, l1[i1])
 			i1++
 		} else {
-			res = append(res, n2[i2])
+			t = append(t, l2[i2])
 			i2++
 		}
 	}
-	res = append(res, n1[i1:]...)
-	res = append(res, n2[i2:]...)
+	t = append(t, l1[i1:]...)
+	t = append(t, l2[i2:]...)
 
-	return res
+	return t
 }

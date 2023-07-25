@@ -1,11 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func main() {
-	nums := []int{1, 9, 10, 30, 2, 5, 45, 8, 63, 234, 12}
+	nums := []int{5, 2, 3, 1}
 	arr := quick(nums)
 	fmt.Println(arr)
+	sort.Slice(nums, func(i, j int) bool {
+		return nums[i] < nums[j]
+	})
 }
 
 // 快速排序入口函数
