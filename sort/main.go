@@ -7,20 +7,19 @@ import (
 func main() {
 	arr := []int{2, 1, 4, 7, 5, 3}
 	//quickSort(arr, 0, len(arr)-1)
-	//bubble(arr)
+	//bubbleSort(arr)
 	quick(arr, 0, len(arr)-1)
 	fmt.Println(arr)
 }
 
-func bubbleSort(arr []int) []int {
-	for i := len(arr) - 1; i >= 0; i-- {
-		for j := 0; j < i; j++ {
-			if arr[i] < arr[j] {
-				arr[i], arr[j] = arr[j], arr[i]
+func bubbleSort(arr []int) {
+	for i := 0; i < len(arr)-1; i++ {
+		for j := 0; j < len(arr)-1-i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j+1], arr[j] = arr[j], arr[j+1]
 			}
 		}
 	}
-	return arr
 }
 
 func selectionSort(arr []int) []int {
@@ -38,45 +37,22 @@ func selectionSort(arr []int) []int {
 	return arr
 }
 
-// 快速排序入口函数
-func quickSort(nums []int, left, right int) {
-	// 递归终止条件
+func quick(arr []int, left, right int) {
 	if left >= right {
 		return
 	}
-	p := partition(nums, left, right)
-	quickSort(nums, left, p-1)
-	quickSort(nums, p+1, right)
-}
-
-func partition(nums []int, left, right int) int {
-	pivot := nums[right]
-	i := left
-	for j := left; j < right; j++ {
-		if nums[j] < pivot {
-			nums[j], nums[i] = nums[i], nums[j]
-			i++
-		}
-	}
-	nums[right], nums[i] = nums[i], pivot
-	return i
-}
-
-func quick(nums []int, left, right int) {
-	if left >= right {
-		return
-	}
-	pivot := nums[left]
+	pivot := arr[left]
 	i, j := left, right
 	for i < j {
-		for i < j && nums[i] < pivot {
-			i++
-		}
-		for i < j && nums[j] > pivot {
+		for i < j && pivot <= arr[j] {
 			j--
 		}
-		nums[i], nums[j] = nums[j], nums[i]
+		for i < j && pivot >= arr[i] {
+			i++
+		}
+		arr[i], arr[j] = arr[j], arr[i]
 	}
-	quick(nums, left, i-1)
-	quick(nums, i+1, right)
+	arr[i], arr[left] = arr[left], arr[i]
+	quick(arr, left, i-1)
+	quick(arr, i+1, right)
 }
